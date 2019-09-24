@@ -1,16 +1,12 @@
 # Install relevant packages
 install.packages("beeswarm")
 install.packages("ggbeeswarm")
-
+install.packages("readxl")
 
 # Load relevant packages
 library(beeswarm)
 library(ggplot2)
 library(ggbeeswarm)
-
-# Install and load readxl package
-install.packages("readxl")
-
 library(readxl)
 
 # Get working directory
