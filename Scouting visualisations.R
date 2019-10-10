@@ -10,6 +10,8 @@ library(ggplot2)
 library(ggbeeswarm)
 library(readxl)
 library(ggpubr)
+library(ggrepel)
+library(dplyr)
 
 # Get working directory
 getwd()
@@ -19,10 +21,13 @@ data <- read_excel("Dribbles.xlsx")
 data2 <- read_excel("Through_passes.xlsx")
 data3 <- read_excel("Passes.xlsx")
 
+# Highlight data of Finn Ole Becker
+Becker <- subset(data$`Dribbles per 90`, data$Player == "F. Becker")
+
 # Create plot
 ggplot(data = data, aes(x = factor(0), y = data$`Dribbles per 90`)) +
-  geom_quasirandom(colour = "#57ceae", size = 12, method = "smiley") +
-  ggtitle("Dribbles per 90 minutes") +
+  geom_quasirandom(shape = 21, varwidth = TRUE, fill = "#57ceae", colour = "#002560", size = 12) +
+  ggtitle("Dribbels per 90 minuten") +
   theme(axis.title.y = element_blank(),
         axis.text.y = element_blank(),
         axis.ticks.y = element_blank(),
@@ -42,9 +47,17 @@ ggplot(data = data, aes(x = factor(0), y = data$`Dribbles per 90`)) +
                colour = "#333333",
                width = 1.2,
                size = 1.5) +
-  scale_y_continuous(limits = c(0, 7)) +
-  geom_point(aes(y = 4.94), colour = "#002560", size = 14) +
-  coord_flip() 
+  scale_y_continuous(limits = c(0, 7), breaks = c(0, 1, 2, 3, 4, 5, 6, 7)) +
+  geom_point(aes(y = Becker), shape = 21, colour = "#57ceae", fill = "#002560", size = 12) +
+  coord_flip() +
+  geom_label_repel(data = data %>% filter(Player == "F. Becker"), 
+                  aes(y = `Dribbles per 90`),
+                  label = "Player X",
+                  vjust = 0.75,
+                  box.padding   = 0.35, 
+                  point.padding = 0.5,
+                  segment.color = 'grey50')
+
 
 
 
