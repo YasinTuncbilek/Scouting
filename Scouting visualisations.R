@@ -53,13 +53,14 @@ ggplot(data = data, aes(x = factor(0), y = data$`Dribbles per 90`)) +
   geom_label_repel(data = data %>% filter(Player == "F. Becker"), 
                   aes(y = `Dribbles per 90`),
                   label = "Player X",
-                  vjust = 0.75,
+                  vjust = 0.25,
                   box.padding   = 0.35, 
-                  point.padding = 0.5,
-                  segment.color = 'grey50')
-
-
-
+                  point.padding = 5,
+                  size =3,
+                  segment.color = 'grey50',
+                  segment.curvature = 1,
+                  arrow = arrow(length = unit(0.015, "npc"), type = "closed", ends = "first"),
+                  force = 5) 
 
 
 test <- ggarrange(dribbles, dribbles, dribbles, dribbles, dribbles, dribbles,
